@@ -63,6 +63,8 @@
 
 Browser checks ran against the local static server over normal localhost navigation, with real browser-origin persistence, and against the directly opened `site/index.html`. GitHub-hosted continuous integration runs the same suite on every push to `main`.
 
-Any future hosted deployment and readback, Safari, Firefox, physical phones, and a formal assistive-technology audit remain external checks.
+GitHub Pages deployment completed successfully from `main` commit `142de7964e802c233225d0a731ec100e4ec4289d` in workflow run `41233898708`, publishing `site/` to `https://luckygithub777.github.io/eclipse-node-theta-7/`. The deployment runner reported the environment URL and completed successfully.
+
+Safari, Firefox, physical phones, and a formal assistive-technology audit remain external checks.
 
 `npm run test:browser` emits the detailed browser-result JSON and temporary screenshots at runtime; `VALIDATION_RESULTS.json` records the controlling local summary.

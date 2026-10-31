@@ -2,6 +2,8 @@
 
 A self-contained seven-step reflection experience built with plain HTML, CSS, and JavaScript.
 
+**Live experience:** https://luckygithub777.github.io/eclipse-node-theta-7/
+
 ![Eclipse Node Theta-7 Star Sigil](site/assets/img/theta7-sigil.svg)
 
 ## Experience
@@ -53,4 +55,4 @@ Theta-7 is symbolic art and reflective software. It does not verify paranormal, 
 
 **Version:** 1.2.2
 **License:** MIT
-**Status:** Published on `main`; continuous integration validates every push. GitHub Pages deployment is CI-gated and publishes only `site/` after Pages is enabled for the repository.
+**Status:** Live on GitHub Pages. Continuous integration validates every push to `main`; only `site/` is published after CI passes.
