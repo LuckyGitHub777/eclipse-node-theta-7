@@ -41,4 +41,4 @@ On a hosted copy, reflection text is stored in local browser storage under `thet
 
 ## Deployment
 
-GitHub Pages deployment is CI-gated. After **Continuous Integration** succeeds on `main`, `.github/workflows/pages.yml` uploads only `site/` and deploys it with GitHub's official Pages actions. Repository Pages must be enabled once with **Source: GitHub Actions** before the first deployment. Downloaded copies run offline; hosted copies require a network connection for initial delivery.
+GitHub Pages is enabled with **Source: GitHub Actions**. After **Continuous Integration** succeeds on `main`, `.github/workflows/pages.yml` uploads only `site/` and deploys it with GitHub's official Pages actions to `https://luckygithub777.github.io/eclipse-node-theta-7/`. Downloaded copies run offline; hosted copies require a network connection for initial delivery.
