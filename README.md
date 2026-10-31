@@ -53,4 +53,4 @@ Theta-7 is symbolic art and reflective software. It does not verify paranormal, 
 
 **Version:** 1.2.2
 **License:** MIT
-**Status:** Published on `main`; continuous integration validates every push. No automatic site publication is configured.
+**Status:** Published on `main`; continuous integration validates every push. GitHub Pages deployment is CI-gated and publishes only `site/` after Pages is enabled for the repository.

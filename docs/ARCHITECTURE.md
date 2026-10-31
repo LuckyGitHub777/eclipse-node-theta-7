@@ -41,4 +41,4 @@ On a hosted copy, reflection text is stored in local browser storage under `thet
 
 ## Deployment
 
-No automatic site publication is configured. The complete deployable surface remains in `site/` so a future hosting decision can publish only that directory. Downloaded copies run offline; hosted copies require a network connection for initial delivery.
+GitHub Pages deployment is CI-gated. After **Continuous Integration** succeeds on `main`, `.github/workflows/pages.yml` uploads only `site/` and deploys it with GitHub's official Pages actions. Repository Pages must be enabled once with **Source: GitHub Actions** before the first deployment. Downloaded copies run offline; hosted copies require a network connection for initial delivery.
