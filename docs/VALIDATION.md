@@ -63,7 +63,7 @@
 
 Browser checks ran against the local static server over normal localhost navigation, with real browser-origin persistence, and against the directly opened `site/index.html`. GitHub-hosted continuous integration runs the same suite on every push to `main`.
 
-GitHub Pages deployment completed successfully from `main` commit `142de7964e802c233225d0a731ec100e4ec4289d` in workflow run `41233898708`, publishing `site/` to `https://luckygithub777.github.io/eclipse-node-theta-7/`. The deployment runner reported the environment URL and completed successfully.
+GitHub Pages is live at `https://luckygithub777.github.io/eclipse-node-theta-7/`. A verified deployment reference is workflow run `41234273759` from `main` commit `37d875ed56cacb799551253514ac9c20f8f1c414`; the deployed `site/` bytes were unchanged from the first successful Pages deployment. The Pages gate now requires a successful **push** CI run from this same repository's `main` branch; manual deployment is limited to `refs/heads/main`.
 
 Safari, Firefox, physical phones, and a formal assistive-technology audit remain external checks.
 

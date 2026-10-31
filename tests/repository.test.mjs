@@ -151,6 +151,9 @@ test("workflow permissions and action references are controlled", () => {
   const pages = read(".github/workflows/pages.yml");
   assert.match(pages, /workflow_run:/);
   assert.match(pages, /workflows: \["Continuous Integration"\]/);
+  assert.match(pages, /github\.event\.workflow_run\.event == 'push'/);
+  assert.match(pages, /github\.event\.workflow_run\.head_repository\.full_name == github\.repository/);
+  assert.match(pages, /github\.event_name == 'workflow_dispatch'[\s\S]*github\.ref == 'refs\/heads\/main'/);
   assert.match(pages, /pages: write/);
   assert.match(pages, /id-token: write/);
   assert.match(pages, /path: site/);
