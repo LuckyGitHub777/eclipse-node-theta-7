@@ -2,7 +2,7 @@
 
 A self-contained seven-step reflection experience built with plain HTML, CSS, and JavaScript.
 
-![Eclipse Node Theta-7 Star Sigil](site/assets/img/theta7-sigil.webp)
+![Eclipse Node Theta-7 Star Sigil](site/assets/img/theta7-sigil.svg)
 
 ## Experience
 

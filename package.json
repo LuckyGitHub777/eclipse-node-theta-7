@@ -1,0 +1,19 @@
+{
+  "name": "eclipse-node-theta-7",
+  "version": "1.2.1",
+  "private": true,
+  "description": "Static seven-step reflection experience for clarity, discernment, and grounded choice.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "serve": "node scripts/serve.mjs",
+    "test": "node --test tests/repository.test.mjs",
+    "test:browser": "python3 tests/browser-smoke.py",
+    "validate": "npm test && npm run test:browser",
+    "manifest": "node scripts/generate-manifest.mjs",
+    "verify:manifest": "node scripts/verify-manifest.mjs",
+    "package": "node scripts/package-release.mjs"
+  }
+}

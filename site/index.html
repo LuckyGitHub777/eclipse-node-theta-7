@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090512">
+  <meta name="description" content="A symbolic seven-step reflection using geometry, optional sound, breathing, and journaling.">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="assets/img/icon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <title>Eclipse Node Theta-7 | Seven-Step Reflection</title>
+</head>
+<body>
+  <a class="skip-link" href="#experience">Skip to the experience</a>
+
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="#top" aria-label="Eclipse Node Theta-7 home">
+        <span class="brand-mark" aria-hidden="true">✦</span>
+        <span>Eclipse Node Theta-7</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#experience">Experience</a>
+        <a href="#questions">Seven Questions</a>
+        <a href="#about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero shell" id="top" aria-labelledby="page-title">
+      <div class="hero-copy">
+        <p class="eyebrow">A seven-step reflection</p>
+        <h1 id="page-title">Pause. Notice.<br>Choose clearly.</h1>
+        <p class="lede">A symbolic experience using geometry, optional sound, breathing, and reflection.</p>
+        <a class="button primary hero-button" href="#experience">Begin</a>
+        <p class="boundary-line">Creative reflection only. No external signal is detected.</p>
+      </div>
+      <figure class="hero-art" aria-label="Theta-7 Star Sigil artwork">
+        <img src="assets/img/theta7-sigil.svg" width="1000" height="1000" alt="A violet and gold seven-pointed eclipse sigil">
+      </figure>
+    </section>
+
+    <section class="experience-section" id="experience" aria-labelledby="experience-heading">
+      <div class="shell">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Interactive reflection</p>
+            <h2 id="experience-heading">Choose a mode.</h2>
+          </div>
+          <span id="sessionStatus" class="status-chip" aria-live="polite">Ready</span>
+        </div>
+
+        <div class="experience-grid">
+          <aside class="card controls" aria-label="Experience controls">
+            <div class="mode-picker" aria-label="Choose a mode">
+              <button type="button" data-mode="observe" aria-pressed="true">Observe</button>
+              <button type="button" data-mode="prompts" aria-pressed="false">7 Prompts</button>
+              <button type="button" data-mode="breathe" aria-pressed="false">Breathe</button>
+            </div>
+            <p class="mode-summary" id="modeSummary">Sit with the image at your own pace.</p>
+
+            <div class="primary-controls">
+              <button class="button primary" id="startBtn" type="button">Start</button>
+              <button class="button secondary" id="resetBtn" type="button">Stop &amp; reset</button>
+            </div>
+
+            <section class="breath-guide" id="breathGuide" aria-labelledby="breathHeading" hidden>
+              <div>
+                <p class="kicker" id="breathHeading">Guided breathing</p>
+                <p class="breath-safety">Seven cycles · about 90 seconds</p>
+              </div>
+              <div class="breath-readout">
+                <span id="breathState">Ready</span>
+                <strong id="breathCount">4 · 2 · 6</strong>
+              </div>
+              <p>Breathe normally if uncomfortable.</p>
+            </section>
+
+            <details class="options">
+              <summary>Sound &amp; motion</summary>
+              <div class="option-grid">
+                <button class="button secondary" id="audioBtn" type="button" aria-pressed="false">Sound: Off</button>
+                <button class="button secondary" id="motionBtn" type="button" aria-pressed="false">Reduce motion: Off</button>
+              </div>
+              <div class="volume-control" id="volumeControl" hidden>
+                <label for="volumeSlider">
+                  <span>Volume</span>
+                  <output id="volumeOutput" for="volumeSlider">25%</output>
+                </label>
+                <input id="volumeSlider" type="range" min="0" max="100" step="5" value="25">
+              </div>
+            </details>
+          </aside>
+
+          <article class="stage card" aria-labelledby="sigil-title">
+            <div class="sigil-wrap" id="sigilWrap">
+              <svg class="sigil" viewBox="0 0 700 700" role="img" aria-labelledby="sigil-title sigil-desc">
+                <title id="sigil-title">Interactive seven-point eclipse sigil</title>
+                <desc id="sigil-desc">A seven-pointed geometric star surrounding a dark eclipse disk with a violet center.</desc>
+                <defs>
+                  <radialGradient id="coreGradient">
+                    <stop offset="0" stop-color="#ffffff"></stop>
+                    <stop offset=".18" stop-color="#e4d8ff"></stop>
+                    <stop offset=".48" stop-color="#9c5cff"></stop>
+                    <stop offset="1" stop-color="#4d198f" stop-opacity=".08"></stop>
+                  </radialGradient>
+                  <radialGradient id="coronaGradient">
+                    <stop offset=".66" stop-color="#000000"></stop>
+                    <stop offset=".72" stop-color="#f8d899"></stop>
+                    <stop offset=".79" stop-color="#f1a940" stop-opacity=".9"></stop>
+                    <stop offset=".93" stop-color="#c45cff" stop-opacity=".12"></stop>
+                    <stop offset="1" stop-color="#000000" stop-opacity="0"></stop>
+                  </radialGradient>
+                  <filter id="softGlow">
+                    <feGaussianBlur stdDeviation="8" result="blur"></feGaussianBlur>
+                    <feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge>
+                  </filter>
+                </defs>
+                <g class="ring ring-slow" opacity=".42">
+                  <circle cx="350" cy="350" r="320" fill="none" stroke="#f1c36b" stroke-width="1.5" stroke-dasharray="2 12"></circle>
+                  <circle cx="350" cy="350" r="286" fill="none" stroke="#9c5cff" stroke-width="1"></circle>
+                </g>
+                <g class="ring ring-reverse" opacity=".32">
+                  <circle cx="350" cy="350" r="256" fill="none" stroke="#f1c36b" stroke-width="1" stroke-dasharray="22 8 2 8"></circle>
+                  <circle cx="350" cy="350" r="229" fill="none" stroke="#9c5cff" stroke-width="1.4" stroke-dasharray="4 9"></circle>
+                </g>
+                <g id="nodeLines" opacity=".5"></g>
+                <path id="heptagramGlow" class="star-glow" fill="none" stroke="#9c5cff" stroke-width="12" opacity=".34" filter="url(#softGlow)"></path>
+                <path id="heptagram" fill="none" stroke="#f1c36b" stroke-width="4.5" stroke-linejoin="round"></path>
+                <g id="nodes"></g>
+                <circle class="pulse-ring" cx="350" cy="350" r="122" fill="url(#coronaGradient)" opacity=".95"></circle>
+                <circle cx="350" cy="350" r="78" fill="#020104" stroke="#f1c36b" stroke-width="2"></circle>
+                <circle class="core" cx="350" cy="350" r="23" fill="url(#coreGradient)"></circle>
+                <circle cx="350" cy="350" r="48" fill="none" stroke="#9c5cff" stroke-width="1.2" opacity=".5"></circle>
+                <circle cx="350" cy="350" r="31" fill="none" stroke="#f1c36b" stroke-width=".7" opacity=".45"></circle>
+              </svg>
+            </div>
+
+            <div class="stage-copy">
+              <div class="progress-meta">
+                <span id="modeLabel">Observe</span>
+                <span id="progressText">Open-ended</span>
+              </div>
+              <div class="progress-track" id="progressTrack" hidden>
+                <div role="progressbar" aria-label="Session progress" aria-valuemin="0" aria-valuemax="7" aria-valuenow="0" id="progressBar">
+                  <span id="progressFill"></span>
+                </div>
+              </div>
+              <p class="transmission" id="transmission" aria-live="polite">Look at the center. Notice what you see, feel, and assume.</p>
+              <button class="button stage-action" id="nextBtn" type="button" hidden>Next question</button>
+            </div>
+          </article>
+        </div>
+
+        <section class="reflection card" aria-labelledby="reflection-heading">
+          <div class="reflection-intro">
+            <p class="eyebrow">Reflection</p>
+            <h2 id="reflection-heading">What remains useful?</h2>
+            <p>Separate fact, interpretation, and next action.</p>
+          </div>
+          <div class="reflection-entry">
+            <label class="visually-hidden" for="journal">Reflection</label>
+            <textarea id="journal" rows="7" placeholder="What did you notice?"></textarea>
+            <div class="journal-actions">
+              <button class="button primary" id="saveBtn" type="button">Save in browser</button>
+              <button class="button secondary" id="exportBtn" type="button">Download</button>
+              <button class="button text-button" id="clearBtn" type="button">Delete</button>
+            </div>
+            <p class="privacy-note" id="saveStatus" aria-live="polite">Saved unencrypted in this browser. Do not enter sensitive information.</p>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="section shell" id="questions" aria-labelledby="questions-heading">
+      <div class="section-intro">
+        <p class="eyebrow">Seven questions</p>
+        <h2 id="questions-heading">A clearer way to judge what matters.</h2>
+      </div>
+      <ol class="question-grid">
+        <li><span>01 · Clarity</span><p>What did you directly observe?</p></li>
+        <li><span>02 · Evidence</span><p>What supports your interpretation?</p></li>
+        <li><span>03 · Pattern</span><p>What else could explain what repeats?</p></li>
+        <li><span>04 · Test</span><p>What would change your mind?</p></li>
+        <li><span>05 · Care</span><p>Does this reduce harm and unnecessary fear?</p></li>
+        <li><span>06 · Choice</span><p>Can you pause, decline, or choose differently?</p></li>
+        <li><span>07 · Action</span><p>What small, reversible step comes next?</p></li>
+      </ol>
+    </section>
+
+    <section class="about-section" id="about" aria-labelledby="about-heading">
+      <div class="shell about-grid card">
+        <div>
+          <p class="eyebrow">About the artwork</p>
+          <h2 id="about-heading">Designed as symbolic art.</h2>
+          <p>The seven points mirror the seven questions. The eclipse represents uncertainty; the center represents attention. The glyphs are decorative marks created for this artwork.</p>
+        </div>
+        <div class="about-boundary">
+          <h3>Symbolic, not factual.</h3>
+          <p>Theta-7 does not verify paranormal, extraterrestrial, medical, or intelligence claims. Do not use it for health, safety, travel, or investigative decisions.</p>
+          <p class="trust-line">No account, tracking, or data upload. Downloaded copies work offline.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-grid">
+      <div>
+        <strong>Eclipse Node Theta-7</strong>
+        <p>Seven questions. One grounded next step.</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <a href="#top">Top</a>
+        <a href="#about">About</a>
+      </nav>
+      <small>v1.2.1</small>
+    </div>
+  </footer>
+
+  <noscript><div class="noscript">JavaScript is required for the interactive session. The seven questions and About section remain available below.</div></noscript>
+  <script src="assets/js/app.js" defer></script>
+</body>
+</html>

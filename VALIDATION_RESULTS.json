@@ -1,0 +1,46 @@
+{
+  "project": "Eclipse Node Theta-7",
+  "version": "1.2.1",
+  "status": "local validation passed with one environment limitation",
+  "date": "2026-10-30",
+  "environment": {
+    "os": "Linux container",
+    "node": "22.16.0",
+    "npm": "10.9.2",
+    "python": "3.13.5",
+    "playwright": "1.57.0",
+    "chromium": "144.0.7559.96"
+  },
+  "results": {
+    "static_repository_tests": {
+      "passed": 16,
+      "failed": 0
+    },
+    "browser_interaction_checks": {
+      "passed": 49,
+      "failed": 0
+    },
+    "yaml_files_parsed": {
+      "passed": 1,
+      "failed": 0
+    },
+    "javascript_syntax": "pass",
+    "static_server_readback": "pass",
+    "npm_production_vulnerabilities": 0,
+    "console_errors": 0,
+    "page_errors": 0,
+    "public_static_word_count": 298,
+    "desktop_horizontal_overflow": false,
+    "mobile_horizontal_overflow": false,
+    "mobile_controls_before_sigil": true,
+    "mobile_minimum_visible_button_height_px": 44
+  },
+  "browser_delivery": "in-memory document because localhost navigation was blocked by administrator policy",
+  "remaining_external_checks": [
+    "Browser-origin persistence",
+    "GitHub-hosted Actions",
+    "Any future hosted deployment and public readback",
+    "Safari",
+    "Formal assistive-technology audit"
+  ]
+}

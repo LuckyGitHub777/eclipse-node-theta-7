@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" role="img" aria-labelledby="title desc">
+<title id="title">Eclipse Node Theta-7 Star Sigil</title>
+<desc id="desc">A violet and gold seven-pointed geometric eclipse sigil.</desc>
+<defs>
+  <radialGradient id="bg"><stop stop-color="#211039"/><stop offset=".48" stop-color="#0c0617"/><stop offset="1" stop-color="#040207"/></radialGradient>
+  <radialGradient id="corona"><stop offset=".54" stop-color="#050208"/><stop offset=".64" stop-color="#050208"/><stop offset=".69" stop-color="#ffe7ad"/><stop offset=".75" stop-color="#f0b64e" stop-opacity=".88"/><stop offset=".9" stop-color="#9d5cff" stop-opacity=".18"/><stop offset="1" stop-color="#9d5cff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="core"><stop stop-color="#fff"/><stop offset=".18" stop-color="#e8dcff"/><stop offset=".5" stop-color="#a46cff"/><stop offset="1" stop-color="#5d24bd" stop-opacity=".12"/></radialGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff0bf"/><stop offset=".42" stop-color="#f2c875"/><stop offset="1" stop-color="#a76b24"/></linearGradient>
+  <filter id="glow" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="12" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <filter id="soft" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="28"/></filter>
+  <pattern id="stars" width="115" height="115" patternUnits="userSpaceOnUse"><circle cx="13" cy="22" r="1.2" fill="#fff" opacity=".42"/><circle cx="87" cy="64" r=".8" fill="#d9c7ff" opacity=".55"/><circle cx="55" cy="102" r="1" fill="#f2c875" opacity=".38"/></pattern>
+</defs>
+<rect width="1000" height="1000" fill="url(#bg)"/>
+<rect width="1000" height="1000" fill="url(#stars)" opacity=".55"/>
+<circle cx="500" cy="500" r="435" fill="none" stroke="#f2c875" stroke-opacity=".28" stroke-width="2"/>
+<circle cx="500" cy="500" r="407" fill="none" stroke="#a46cff" stroke-opacity=".34" stroke-width="2" stroke-dasharray="3 14"/>
+<circle cx="500" cy="500" r="375" fill="none" stroke="#f2c875" stroke-opacity=".18" stroke-width="1.5" stroke-dasharray="34 9 3 9"/>
+<circle cx="500" cy="500" r="330" fill="#8f50ff" opacity=".12" filter="url(#soft)"/>
+<g stroke="#b68cff" stroke-opacity=".24" stroke-width="1.5"><line x1="500" y1="500" x2="500.00" y2="135.00" />
+<line x1="500" y1="500" x2="785.37" y2="272.43" />
+<line x1="500" y1="500" x2="855.85" y2="581.22" />
+<line x1="500" y1="500" x2="658.37" y2="828.85" />
+<line x1="500" y1="500" x2="341.63" y2="828.85" />
+<line x1="500" y1="500" x2="144.15" y2="581.22" />
+<line x1="500" y1="500" x2="214.63" y2="272.43" /></g>
+<path d="M500.00,135.00 L658.37,828.85 L214.63,272.43 L855.85,581.22 L144.15,581.22 L785.37,272.43 L341.63,828.85 L500.00,135.00 Z" fill="none" stroke="#8d4cff" stroke-opacity=".5" stroke-width="24" filter="url(#glow)"/>
+<path d="M500.00,135.00 L658.37,828.85 L214.63,272.43 L855.85,581.22 L144.15,581.22 L785.37,272.43 L341.63,828.85 L500.00,135.00 Z" fill="none" stroke="url(#gold)" stroke-width="8" stroke-linejoin="round"/>
+<g fill="#08040f" stroke="#f2c875" stroke-width="3"><g transform="translate(500.00 135.00)"><circle r="19"/><circle class="dot" r="6"/></g>
+<g transform="translate(785.37 272.43)"><circle r="19"/><circle class="dot" r="6"/></g>
+<g transform="translate(855.85 581.22)"><circle r="19"/><circle class="dot" r="6"/></g>
+<g transform="translate(658.37 828.85)"><circle r="19"/><circle class="dot" r="6"/></g>
+<g transform="translate(341.63 828.85)"><circle r="19"/><circle class="dot" r="6"/></g>
+<g transform="translate(144.15 581.22)"><circle r="19"/><circle class="dot" r="6"/></g>
+<g transform="translate(214.63 272.43)"><circle r="19"/><circle class="dot" r="6"/></g></g>
+<style>.dot{fill:#a46cff;stroke:none;filter:url(#glow)}</style>
+<circle cx="500" cy="500" r="205" fill="url(#corona)" filter="url(#glow)"/>
+<circle cx="500" cy="500" r="127" fill="#020103" stroke="#f2c875" stroke-width="3"/>
+<circle cx="500" cy="500" r="84" fill="none" stroke="#a46cff" stroke-opacity=".5" stroke-width="2"/>
+<circle cx="500" cy="500" r="54" fill="none" stroke="#f2c875" stroke-opacity=".34" stroke-width="1.5"/>
+<circle cx="500" cy="500" r="38" fill="url(#core)" filter="url(#glow)"/>
+<circle cx="500" cy="500" r="7" fill="#fff"/>
+</svg>

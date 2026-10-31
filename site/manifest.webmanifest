@@ -1,0 +1,17 @@
+{
+  "name": "Eclipse Node Theta-7",
+  "short_name": "Theta-7",
+  "description": "A symbolic seven-step reflection using geometry, optional sound, breathing, and journaling.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#06030b",
+  "theme_color": "#090512",
+  "icons": [
+    {
+      "src": "assets/img/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
