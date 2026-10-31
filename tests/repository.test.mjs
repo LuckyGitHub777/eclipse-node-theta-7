@@ -10,7 +10,7 @@ const required = [
   "README.md", "LICENSE", "SECURITY.md", "CHANGELOG.md", "requirements-browser.txt",
   "site/index.html", "site/404.html", "site/.nojekyll", "site/manifest.webmanifest",
   "site/assets/css/styles.css", "site/assets/js/app.js", "site/assets/img/theta7-sigil.svg",
-  ".github/workflows/ci.yml"
+  ".github/workflows/ci.yml", ".github/workflows/pages.yml"
 ];
 
 const packageJson = JSON.parse(read("package.json"));
@@ -148,7 +148,17 @@ test("workflow permissions and action references are controlled", () => {
   assert.match(ci, /requirements-browser\.txt/);
   assert.match(ci, /actions\/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1/);
   assert.match(ci, /actions\/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e/);
-  assert.ok(!existsSync(resolve(root, ".github/workflows/pages.yml")), "Automatic site publication must remain absent from repository intake");
+  const pages = read(".github/workflows/pages.yml");
+  assert.match(pages, /workflow_run:/);
+  assert.match(pages, /workflows: \["Continuous Integration"\]/);
+  assert.match(pages, /pages: write/);
+  assert.match(pages, /id-token: write/);
+  assert.match(pages, /path: site/);
+  assert.match(pages, /actions\/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1/);
+  assert.match(pages, /actions\/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d/);
+  assert.match(pages, /actions\/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9/);
+  assert.match(pages, /actions\/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346/);
+  assert.doesNotMatch(pages, /enablement:\s*true/);
 });
 
 test("repository ownership metadata matches the destination", () => {
