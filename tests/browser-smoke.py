@@ -52,7 +52,7 @@ def install_storage_shim(page):
 def load_harness(page):
     install_storage_shim(page)
     page.set_content(harness_content(), wait_until="load")
-    page.wait_for_function("window.__THETA7__ && window.__THETA7__.version === '1.2.1'")
+    page.wait_for_function("window.__THETA7__ && window.__THETA7__.version === '1.2.2'")
 
 
 def http_status(url):
@@ -110,7 +110,7 @@ def run():
     try:
         wait_for_server(port)
         base = f"http://127.0.0.1:{port}"
-        results = {"version": "1.2.1", "delivery": "localhost", "checks": {}, "environment": {}}
+        results = {"version": "1.2.2", "delivery": "localhost", "checks": {}, "environment": {}}
         checks = results["checks"]
 
         with sync_playwright() as p:
@@ -126,7 +126,7 @@ def run():
             delivery = "localhost"
             try:
                 response = page.goto(base, wait_until="networkidle")
-                page.wait_for_function("window.__THETA7__ && window.__THETA7__.version === '1.2.1'")
+                page.wait_for_function("window.__THETA7__ && window.__THETA7__.version === '1.2.2'")
             except Exception as error:
                 navigation_error = str(error)
                 delivery = "in-memory browser harness"
@@ -140,7 +140,7 @@ def run():
             results["delivery"] = delivery
             add_check(checks, "static_server_readback", http_status(base) == 200)
             add_check(checks, "title", page.title() == "Eclipse Node Theta-7 | Seven-Step Reflection")
-            add_check(checks, "version", page.evaluate("window.__THETA7__.version") == "1.2.1")
+            add_check(checks, "version", page.evaluate("window.__THETA7__.version") == "1.2.2")
             add_check(checks, "seven_nodes", page.locator(".theta-node").count() == 7)
             add_check(checks, "seven_questions", page.locator(".question-grid li").count() == 7)
             add_check(checks, "ready_status", page.locator("#sessionStatus").inner_text() == "Ready")
@@ -236,7 +236,7 @@ def run():
             page.set_viewport_size({"width": 1440, "height": 1000})
             if delivery == "localhost":
                 page.reload(wait_until="networkidle")
-                page.wait_for_function("window.__THETA7__ && window.__THETA7__.version === '1.2.1'")
+                page.wait_for_function("window.__THETA7__ && window.__THETA7__.version === '1.2.2'")
             else:
                 load_harness(page)
             page.evaluate("document.activeElement?.blur(); document.querySelector('.skip-link').style.display='none'; window.scrollTo(0, 0)")
@@ -246,7 +246,7 @@ def run():
             page.set_viewport_size({"width": 390, "height": 844})
             if delivery == "localhost":
                 page.reload(wait_until="networkidle")
-                page.wait_for_function("window.__THETA7__ && window.__THETA7__.version === '1.2.1'")
+                page.wait_for_function("window.__THETA7__ && window.__THETA7__.version === '1.2.2'")
             else:
                 load_harness(page)
             page.evaluate("document.activeElement?.blur(); document.querySelector('.skip-link').style.display='none'; window.scrollTo(0, 0)")
@@ -274,11 +274,65 @@ def run():
             reduced_page = reduced_context.new_page()
             if delivery == "localhost":
                 reduced_page.goto(base, wait_until="networkidle")
-                reduced_page.wait_for_function("window.__THETA7__ && window.__THETA7__.version === '1.2.1'")
+                reduced_page.wait_for_function("window.__THETA7__ && window.__THETA7__.version === '1.2.2'")
             else:
                 load_harness(reduced_page)
             add_check(checks, "system_reduced_motion", reduced_page.locator("body").evaluate("node => node.classList.contains('motion-off')"))
             reduced_context.close()
+
+            # Directly opened copy (file://): reflections stay in the tab, shared storage is cleared.
+            file_context = browser.new_context(accept_downloads=True)
+            file_page = file_context.new_page()
+            file_page.on("pageerror", lambda error: page_errors.append(str(error)))
+            file_dialogs = []
+
+            def accept_dialog(dialog):
+                file_dialogs.append(dialog.type)
+                dialog.accept()
+
+            file_page.on("dialog", accept_dialog)
+            file_url = (ROOT / "site" / "index.html").as_uri()
+            file_page.goto(file_url, wait_until="load")
+            file_page.wait_for_function("window.__THETA7__ && window.__THETA7__.version === '1.2.2'")
+            add_check(checks, "file_mode_message", "stay in this tab only" in file_page.locator("#saveStatus").inner_text())
+            file_page.locator("#journal").fill("File-mode reflection.")
+            file_page.locator("#saveBtn").click()
+            add_check(checks, "file_mode_save_not_shared", file_page.evaluate("localStorage.getItem('theta7.reflection.v1.2')") is None)
+            add_check(checks, "file_mode_save_message_honest", "Kept in this tab only" in file_page.locator("#saveStatus").inner_text())
+            file_page.reload(wait_until="load")
+            add_check(checks, "file_mode_unsaved_prompt", file_dialogs.count("beforeunload") == 1)
+            file_page.evaluate("localStorage.setItem('theta7.reflection.v1.2', 'Legacy shared reflection.')")
+            file_page.reload(wait_until="load")
+            add_check(checks, "file_mode_legacy_recovered", file_page.locator("#journal").input_value() == "Legacy shared reflection.")
+            add_check(checks, "file_mode_legacy_removed", file_page.evaluate("localStorage.getItem('theta7.reflection.v1.2')") is None)
+            with file_page.expect_download():
+                file_page.locator("#exportBtn").click()
+            before_prompts = file_dialogs.count("beforeunload")
+            file_page.reload(wait_until="load")
+            add_check(checks, "file_mode_download_clears_prompt", file_dialogs.count("beforeunload") == before_prompts)
+            file_context.close()
+
+            # Hosted copy: saving persists and clears the unsaved-work prompt.
+            if delivery == "localhost":
+                hosted_context = browser.new_context()
+                hosted_page = hosted_context.new_page()
+                hosted_dialogs = []
+
+                def accept_hosted(dialog):
+                    hosted_dialogs.append(dialog.type)
+                    dialog.accept()
+
+                hosted_page.on("dialog", accept_hosted)
+                hosted_page.goto(base, wait_until="networkidle")
+                hosted_page.locator("#journal").fill("Unsaved hosted reflection.")
+                hosted_page.reload(wait_until="networkidle")
+                add_check(checks, "hosted_unsaved_prompt", hosted_dialogs.count("beforeunload") == 1)
+                hosted_page.locator("#journal").fill("Saved hosted reflection.")
+                hosted_page.locator("#saveBtn").click()
+                hosted_page.reload(wait_until="networkidle")
+                add_check(checks, "hosted_save_clears_prompt", hosted_dialogs.count("beforeunload") == 1)
+                add_check(checks, "hosted_save_persists", hosted_page.locator("#journal").input_value() == "Saved hosted reflection.")
+                hosted_context.close()
 
             add_check(checks, "no_console_errors", not console_errors)
             add_check(checks, "no_page_errors", not page_errors)

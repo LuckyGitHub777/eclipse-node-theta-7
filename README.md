@@ -37,7 +37,7 @@ Browser testing requires Python 3, Chromium, and the pinned package in `requirem
 
 ## Privacy and use boundary
 
-The application has no account, analytics, backend, or data upload. Reflections are stored unencrypted in the active browser profile and may be visible to other users of that profile.
+The application has no account, analytics, backend, or data upload. On a hosted copy, saved reflections are stored unencrypted in the active browser profile and may be visible to other users of that profile. A directly opened `site/index.html` keeps reflections in the open tab only, because browsers can share one storage area across all local files; use **Download** to keep a copy.
 
 Theta-7 is symbolic art and reflective software. It does not verify paranormal, extraterrestrial, medical, or intelligence claims and should not guide health, safety, travel, or investigative decisions.
 
@@ -51,6 +51,6 @@ Theta-7 is symbolic art and reflective software. It does not verify paranormal, 
 
 ## Repository state
 
-**Version:** 1.2.1
+**Version:** 1.2.2
 **License:** MIT
-**Status:** GitHub intake complete locally; no automatic site publication configured.
+**Status:** Published on `main`; continuous integration validates every push. No automatic site publication is configured.

@@ -37,7 +37,7 @@ Changing modes or selecting **Stop & reset** returns the selected mode to `ready
 
 ## Privacy
 
-Reflection text is stored in local browser storage under `theta7.reflection.v1.2`. Download uses an in-browser Blob and never uploads content.
+On a hosted copy, reflection text is stored in local browser storage under `theta7.reflection.v1.2`. A directly opened copy (`file://`) keeps reflection text in memory for the open tab only, because browsers can share one storage area across all local files; any reflection an earlier version saved there is moved into the tab and removed from shared storage. Reloading or closing with an unsaved reflection asks for confirmation. Download uses an in-browser Blob and never uploads content.
 
 ## Deployment
 
