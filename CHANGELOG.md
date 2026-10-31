@@ -2,6 +2,16 @@
 
 All notable changes are documented in this file.
 
+## [1.2.2] - 2026-10-31
+
+### Fixed
+
+- Directly opened copies (`file://`) keep reflections in the open tab only, because browsers can share one storage area across all local files. Download keeps a durable copy.
+- A reflection saved to shared local-file storage by an earlier version is moved into the tab on first open and removed from shared storage.
+- Save now reports when browser storage is unavailable instead of claiming the reflection was saved.
+- Reloading or closing the page with an unsaved reflection asks for confirmation. Saving (hosted) or downloading clears the prompt.
+- Audio cleanup moved to page hide so a cancelled reload keeps sound working.
+
 ## [1.2.1] - 2026-10-30
 
 ### Changed

@@ -42,10 +42,10 @@ test("required repository files exist", () => {
 });
 
 test("version identity is consistent", () => {
-  assert.equal(packageJson.version, "1.2.1");
-  assert.match(html, /<small>v1\.2\.1<\/small>/);
-  assert.match(js, /const VERSION = "1\.2\.1"/);
-  assert.match(read("CHANGELOG.md"), /## \[1\.2\.1\]/);
+  assert.equal(packageJson.version, "1.2.2");
+  assert.match(html, /<small>v1\.2\.2<\/small>/);
+  assert.match(js, /const VERSION = "1\.2\.2"/);
+  assert.match(read("CHANGELOG.md"), /## \[1\.2\.2\]/);
 });
 
 test("JavaScript syntax passes", () => {

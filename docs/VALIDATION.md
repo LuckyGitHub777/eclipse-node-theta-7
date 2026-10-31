@@ -1,15 +1,15 @@
 # Validation Record
 
-**Artifact:** Eclipse Node Theta-7 v1.2.1
-**Validation date:** 2026-10-30
-**Environment:** Linux container, Node.js 22.16.0, npm 10.9.2, Python 3.13.5, Playwright 1.57.0, Chromium 144.0.7559.96
+**Artifact:** Eclipse Node Theta-7 v1.2.2
+**Validation date:** 2026-10-31
+**Environment:** Linux container, Node.js 22, Python 3, Playwright 1.57.0, Chromium (localhost delivery)
 
 ## Results
 
 | Validation area | Result |
 |---|---:|
 | Static repository tests | 16 of 16 PASS |
-| Chromium interaction checks | 49 of 49 PASS |
+| Chromium interaction checks | 59 of 59 PASS |
 | Workflow YAML parsing | 1 of 1 PASS |
 | JavaScript syntax | PASS |
 | Local asset resolution | PASS |
@@ -35,6 +35,8 @@
 - Sound toggle, conditional volume control, and immediate audio stop
 - Reduced-motion toggle and system preference
 - Browser reflection save, local download, protected delete, and storage removal
+- Directly opened (`file://`) copy: tab-only reflections, honest save message, shared-storage recovery and removal, unsaved-work prompt
+- Hosted copy: unsaved-work prompt, cleared by saving
 - Responsive desktop and mobile rendering
 - 404 copy, status, and return-home behavior
 
@@ -57,10 +59,10 @@
 - YAML parsing
 - npm production audit
 
-## Environment limitation
+## Delivery
 
-The local static server returned the expected HTTP responses, including the 404 page. Chromium navigation to local addresses was blocked by an administrator policy in this execution environment, so the exact HTML, CSS, JavaScript, and artwork were exercised through an in-memory browser document. The browser test uses normal localhost navigation when the environment permits it.
+Browser checks ran against the local static server over normal localhost navigation, with real browser-origin persistence, and against the directly opened `site/index.html`. GitHub-hosted continuous integration runs the same suite on every push to `main`.
 
-Browser-origin persistence, GitHub-hosted Actions, any future hosted deployment/readback, Safari, and a formal assistive-technology audit remain external checks.
+Any future hosted deployment and readback, Safari, Firefox, physical phones, and a formal assistive-technology audit remain external checks.
 
 `npm run test:browser` emits the detailed browser-result JSON and temporary screenshots at runtime; `VALIDATION_RESULTS.json` records the controlling local summary.
