@@ -79,6 +79,8 @@ test("public interface is concise and free of internal project-history language"
 test("privacy and use boundaries remain visible and concise", () => {
   assert.match(html, /Creative reflection only\. No external signal is detected\./i);
   assert.match(html, /On GitHub Pages, reflections stay in this tab only/i);
+  assert.match(js, /SHARED_PAGES_ORIGIN = window.location.hostname.toLowerCase\(\).endsWith\("\\.github\\.io"\)/);
+  assert.match(js, /TAB_ONLY_MODE = FILE_MODE \\|\\| SHARED_PAGES_ORIGIN/);
   assert.match(html, /does not verify paranormal, extraterrestrial, medical, or intelligence claims/i);
   assert.match(html, /Downloaded copies work offline/i);
   assert.doesNotMatch(html, /No network connection|No network requests|offline-first/i);
