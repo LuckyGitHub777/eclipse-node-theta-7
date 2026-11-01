@@ -2,6 +2,15 @@
 
 All notable changes are documented in this file.
 
+## [1.2.3] - 2026-10-31
+
+### Privacy
+
+- GitHub Pages project paths share an origin; reflections now stay only in tab memory on `*.github.io` rather than origin-wide localStorage.
+- On first visit to the updated page, an older shared-origin copy is recovered into the tab and removed from localStorage. This cannot erase old copies from browsers that do not revisit.
+- Unsaved navigation warnings and explicit Markdown export remain available. Ordinary non-GitHub hosted origins retain the documented unencrypted browser-storage behavior.
+- Browser and repository tests now enforce the GitHub Pages isolation rule.
+
 ## [1.2.2] - 2026-10-31
 
 ### Fixed
