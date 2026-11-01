@@ -52,7 +52,7 @@ def install_storage_shim(page):
 def load_harness(page):
     install_storage_shim(page)
     page.set_content(harness_content(), wait_until="load")
-    page.wait_for_function("window.__THETA7__ && window.__THETA7__.version === '1.2.2'")
+    page.wait_for_function("window.__THETA7__ && window.__THETA7__.version === '1.2.3'")
 
 
 def http_status(url):
@@ -110,7 +110,7 @@ def run():
     try:
         wait_for_server(port)
         base = f"http://127.0.0.1:{port}"
-        results = {"version": "1.2.2", "delivery": "localhost", "checks": {}, "environment": {}}
+        results = {"version": "1.2.3", "delivery": "localhost", "checks": {}, "environment": {}}
         checks = results["checks"]
 
         with sync_playwright() as p:
@@ -126,7 +126,7 @@ def run():
             delivery = "localhost"
             try:
                 response = page.goto(base, wait_until="networkidle")
-                page.wait_for_function("window.__THETA7__ && window.__THETA7__.version === '1.2.2'")
+                page.wait_for_function("window.__THETA7__ && window.__THETA7__.version === '1.2.3'")
             except Exception as error:
                 navigation_error = str(error)
                 delivery = "in-memory browser harness"
@@ -140,7 +140,7 @@ def run():
             results["delivery"] = delivery
             add_check(checks, "static_server_readback", http_status(base) == 200)
             add_check(checks, "title", page.title() == "Eclipse Node Theta-7 | Seven-Step Reflection")
-            add_check(checks, "version", page.evaluate("window.__THETA7__.version") == "1.2.2")
+            add_check(checks, "version", page.evaluate("window.__THETA7__.version") == "1.2.3")
             add_check(checks, "seven_nodes", page.locator(".theta-node").count() == 7)
             add_check(checks, "seven_questions", page.locator(".question-grid li").count() == 7)
             add_check(checks, "ready_status", page.locator("#sessionStatus").inner_text() == "Ready")
@@ -236,7 +236,7 @@ def run():
             page.set_viewport_size({"width": 1440, "height": 1000})
             if delivery == "localhost":
                 page.reload(wait_until="networkidle")
-                page.wait_for_function("window.__THETA7__ && window.__THETA7__.version === '1.2.2'")
+                page.wait_for_function("window.__THETA7__ && window.__THETA7__.version === '1.2.3'")
             else:
                 load_harness(page)
             page.evaluate("document.activeElement?.blur(); document.querySelector('.skip-link').style.display='none'; window.scrollTo(0, 0)")
@@ -246,7 +246,7 @@ def run():
             page.set_viewport_size({"width": 390, "height": 844})
             if delivery == "localhost":
                 page.reload(wait_until="networkidle")
-                page.wait_for_function("window.__THETA7__ && window.__THETA7__.version === '1.2.2'")
+                page.wait_for_function("window.__THETA7__ && window.__THETA7__.version === '1.2.3'")
             else:
                 load_harness(page)
             page.evaluate("document.activeElement?.blur(); document.querySelector('.skip-link').style.display='none'; window.scrollTo(0, 0)")
@@ -274,7 +274,7 @@ def run():
             reduced_page = reduced_context.new_page()
             if delivery == "localhost":
                 reduced_page.goto(base, wait_until="networkidle")
-                reduced_page.wait_for_function("window.__THETA7__ && window.__THETA7__.version === '1.2.2'")
+                reduced_page.wait_for_function("window.__THETA7__ && window.__THETA7__.version === '1.2.3'")
             else:
                 load_harness(reduced_page)
             add_check(checks, "system_reduced_motion", reduced_page.locator("body").evaluate("node => node.classList.contains('motion-off')"))
@@ -293,7 +293,7 @@ def run():
             file_page.on("dialog", accept_dialog)
             file_url = (ROOT / "site" / "index.html").as_uri()
             file_page.goto(file_url, wait_until="load")
-            file_page.wait_for_function("window.__THETA7__ && window.__THETA7__.version === '1.2.2'")
+            file_page.wait_for_function("window.__THETA7__ && window.__THETA7__.version === '1.2.3'")
             add_check(checks, "file_mode_message", "stay in this tab only" in file_page.locator("#saveStatus").inner_text())
             file_page.locator("#journal").fill("File-mode reflection.")
             file_page.locator("#saveBtn").click()
@@ -311,6 +311,44 @@ def run():
             file_page.reload(wait_until="load")
             add_check(checks, "file_mode_download_clears_prompt", file_dialogs.count("beforeunload") == before_prompts)
             file_context.close()
+
+            # Simulated GitHub Pages origin: project paths share storage, so a
+            # private reflection must never enter origin-wide localStorage.
+            pages_context = browser.new_context(accept_downloads=True)
+            pages_page = pages_context.new_page()
+            from urllib.parse import urlsplit
+
+            def serve_pages_origin(route):
+                path = urlsplit(route.request.url).path
+                prefix = "/eclipse-node-theta-7/"
+                if not path.startswith(prefix):
+                    route.fulfill(status=404, body="Not found")
+                    return
+                rel = path[len(prefix):] or "index.html"
+                base_dir = (ROOT / "site").resolve()
+                source = (base_dir / rel).resolve()
+                if source.is_relative_to(base_dir) and source.is_file():
+                    route.fulfill(path=str(source))
+                else:
+                    route.fulfill(status=404, body="Not found")
+
+            pages_context.route("https://luckygithub777.github.io/**", serve_pages_origin)
+            pages_url = "https://luckygithub777.github.io/eclipse-node-theta-7/"
+            pages_page.goto(pages_url, wait_until="load")
+            pages_page.wait_for_function("window.__THETA7__ && window.__THETA7__.version === '1.2.3'")
+            add_check(checks, "github_pages_tab_notice", "stay in this tab only" in pages_page.locator("#saveStatus").inner_text())
+            pages_page.locator("#journal").fill("Synthetic private shared-origin reflection.")
+            pages_page.locator("#saveBtn").click()
+            add_check(checks, "github_pages_save_not_shared", pages_page.evaluate("localStorage.getItem('theta7.reflection.v1.2')") is None)
+            sibling = pages_context.new_page()
+            sibling.goto("https://luckygithub777.github.io/another-project/", wait_until="load")
+            add_check(checks, "github_pages_sibling_read_empty", sibling.evaluate("localStorage.getItem('theta7.reflection.v1.2')") is None)
+            sibling.close()
+            pages_page.evaluate("localStorage.setItem('theta7.reflection.v1.2', 'Synthetic legacy stored reflection.')")
+            pages_page.reload(wait_until="load")
+            add_check(checks, "github_pages_legacy_recovered", pages_page.locator("#journal").input_value() == "Synthetic legacy stored reflection.")
+            add_check(checks, "github_pages_legacy_removed", pages_page.evaluate("localStorage.getItem('theta7.reflection.v1.2')") is None)
+            pages_context.close()
 
             # Hosted copy: saving persists and clears the unsaved-work prompt.
             if delivery == "localhost":
