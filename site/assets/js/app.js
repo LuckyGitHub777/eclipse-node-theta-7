@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const VERSION = "1.2.2";
+  const VERSION = "1.2.3";
   const QUESTIONS = Object.freeze([
     "What did you directly observe?",
     "What supports your interpretation?",
@@ -89,21 +89,23 @@
   const storageKey = "theta7.reflection.v1.2";
   const previousStorageKey = "theta7.integrationJournal.v1.1";
   const fallbackStore = new Map();
-  // Every local file opened in a browser can share one file:// storage origin,
-  // so a directly opened copy keeps reflections in this tab only.
+  // github.io project paths share one origin; local files may share file:// storage.
+  // Neither is a safe boundary for a private user reflection. Keep it in tab memory.
   const FILE_MODE = window.location.protocol === "file:";
-  let persistent = !FILE_MODE;
+  const SHARED_PAGES_ORIGIN = window.location.hostname.toLowerCase().endsWith(".github.io");
+  const TAB_ONLY_MODE = FILE_MODE || SHARED_PAGES_ORIGIN;
+  let persistent = !TAB_ONLY_MODE;
 
   const MESSAGES = Object.freeze({
     idle: "Saved unencrypted in this browser. Do not enter sensitive information.",
-    fileIdle: "Opened as a local file: reflections stay in this tab only. Download to keep a copy.",
+    fileIdle: "Reflections stay in this tab only. Download to keep a copy.",
     saved: "Saved in this browser.",
     fileKept: "Kept in this tab only. Download to keep a copy.",
     unavailable: "Browser storage is unavailable: kept in this tab only. Download to keep a copy.",
-    recovered: "An earlier saved reflection was moved here from shared local-file storage. Download to keep it."
+    recovered: "An earlier saved reflection was moved here from shared browser storage. Download to keep it."
   });
 
-  const idleMessage = () => (FILE_MODE ? MESSAGES.fileIdle : MESSAGES.idle);
+  const idleMessage = () => (TAB_ONLY_MODE ? MESSAGES.fileIdle : MESSAGES.idle);
 
   const storage = {
     get(key) {
@@ -415,7 +417,7 @@
   function saveReflection() {
     const persisted = storage.set(storageKey, elements.journal.value);
     if (persisted) keptValue = elements.journal.value;
-    elements.saveStatus.textContent = persisted ? MESSAGES.saved : FILE_MODE ? MESSAGES.fileKept : MESSAGES.unavailable;
+    elements.saveStatus.textContent = persisted ? MESSAGES.saved : TAB_ONLY_MODE ? MESSAGES.fileKept : MESSAGES.unavailable;
     if (persisted) {
       window.setTimeout(() => {
         elements.saveStatus.textContent = idleMessage();
@@ -521,7 +523,7 @@
   }
 
   function recoverSharedFileStorage() {
-    // Earlier versions saved directly opened copies to shared file:// storage.
+    // Earlier versions saved on origins shared by file:// and github.io project paths.
     // Move any such reflection into this tab and remove it from shared storage.
     let recovered = "";
     for (const key of [storageKey, previousStorageKey]) {
@@ -535,7 +537,7 @@
   }
 
   function initializeStorage() {
-    if (FILE_MODE) {
+    if (TAB_ONLY_MODE) {
       const recovered = recoverSharedFileStorage();
       elements.journal.value = recovered;
       keptValue = "";
