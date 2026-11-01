@@ -42,10 +42,10 @@ test("required repository files exist", () => {
 });
 
 test("version identity is consistent", () => {
-  assert.equal(packageJson.version, "1.2.2");
-  assert.match(html, /<small>v1\.2\.2<\/small>/);
-  assert.match(js, /const VERSION = "1\.2\.2"/);
-  assert.match(read("CHANGELOG.md"), /## \[1\.2\.2\]/);
+  assert.equal(packageJson.version, "1.2.3");
+  assert.match(html, /<small>v1\\.2\\.3<\/small>/);
+  assert.match(js, /const VERSION = "1\\.2\\.3"/);
+  assert.match(read("CHANGELOG.md"), /## \[1\\.2\\.3\]/);
 });
 
 test("JavaScript syntax passes", () => {
@@ -78,7 +78,7 @@ test("public interface is concise and free of internal project-history language"
 
 test("privacy and use boundaries remain visible and concise", () => {
   assert.match(html, /Creative reflection only\. No external signal is detected\./i);
-  assert.match(html, /Saved unencrypted in this browser/i);
+  assert.match(html, /On GitHub Pages, reflections stay in this tab only/i);
   assert.match(html, /does not verify paranormal, extraterrestrial, medical, or intelligence claims/i);
   assert.match(html, /Downloaded copies work offline/i);
   assert.doesNotMatch(html, /No network connection|No network requests|offline-first/i);
